@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
 
+import Typography from '@/components/elements/Typography';
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -24,6 +26,10 @@ function App(): React.JSX.Element {
         style={backgroundStyle}
       >
         <Header />
+
+        <Typography fontSize='xl' fontWeight='bold'>
+          Hello
+        </Typography>
       </ScrollView>
     </SafeAreaView>
   );

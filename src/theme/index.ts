@@ -7,6 +7,8 @@ export const theme = {
     bold: 'Roboto-Bold',
   },
   colors: {
+    white: '#FFFFFF',
+    black: '#000000',
     lightGray: '#A4A9AE26',
     gray: '#8E949A',
     red: '#FF6363',
@@ -20,4 +22,9 @@ export const theme = {
     lg: 20,
     xl: 24,
   },
-};
+} as const;
+
+export type MyTheme = typeof theme;
+export type Colors = keyof MyTheme['colors'];
+export type FontFamily = keyof MyTheme['fontFamily'];
+export type FontSize = keyof MyTheme['fontSizes'];
