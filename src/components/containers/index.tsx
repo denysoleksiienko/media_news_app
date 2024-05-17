@@ -1,7 +1,12 @@
 import { FC } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import { ImageBackground, ImageBackgroundProps, View } from 'react-native';
+import {
+  ImageBackground,
+  ImageBackgroundProps,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {
   Edge,
   SafeAreaView as DefaultSafeAreaView,
@@ -54,7 +59,7 @@ const SafeAreaView: FC<PropsWithChildren<SafeAreaViewProps>> = ({
 };
 
 export const SafeAreaViewContainer: FC<
-  PropsWithChildren<SafeAreaKeyboardAvoidingViewProps>
+  PropsWithChildren<SafeAreaViewProps & { style?: ViewStyle }>
 > = ({
   children,
   safeTop,

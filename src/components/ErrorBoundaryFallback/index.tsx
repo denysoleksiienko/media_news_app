@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { FallbackProps } from 'react-error-boundary';
 import { Button, SafeAreaView, View } from 'react-native';
 
-import Typography from '@/components/elements/Typography';
+import { Typography } from '@/components/elements';
 
 const ErrorBoundaryFallback: FC<FallbackProps> = ({
   error,

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ButtonProps, Pressable, StyleSheet, View } from 'react-native';
+import { PressableProps, Pressable, StyleSheet, View } from 'react-native';
 
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Typography from '@/components/elements/Typography';
@@ -8,11 +8,9 @@ import { theme } from '@/theme';
 
 type Variants = 'primary' | 'error';
 
-interface IButtonProps extends ButtonProps {
+interface IButtonProps extends PressableProps {
   label: string;
-  onPress: () => void;
   variant?: Variants;
-  disabled?: boolean;
   loading?: boolean;
 }
 
@@ -24,18 +22,27 @@ const Button: FC<IButtonProps> = ({
   loading = false,
   ...props
 }): JSX.Element => (
-  <Pressable
-    disabled={disabled}
-    onPress={onPress}
-    style={styles({ variant }).inner}
-    {...props}
-  >
+  <Pressable disabled={disabled} onPress={onPress} {...props}>
     {({ pressed }) => (
-      <View style={styles({ pressed }).inner}>
+      <View
+        style={[
+          styles({ pressed, variant }).inner,
+          {
+            backgroundColor: disabled
+              ? theme.colors.lightBlue
+              : theme.colors.blue,
+          },
+        ]}
+      >
         {loading ? (
           <LoadingSpinner color={theme.colors.white} inline size='small' />
         ) : (
-          <Typography fontSize='xl' fontWeight='bold'>
+          <Typography
+            color='white'
+            fontSize='xl'
+            fontWeight='bold'
+            style={{ textTransform: 'uppercase' }}
+          >
             {label}
           </Typography>
         )}
@@ -54,11 +61,13 @@ const styles = ({
   variant?: Variants;
 }) =>
   StyleSheet.create({
-    pressed: {
+    inner: {
       backgroundColor:
         variant === 'error' ? theme.colors.red : theme.colors.blue,
-    },
-    inner: {
-      backgroundColor: pressed ? theme.colors.lightBlue : theme.colors.blue,
+      borderRadius: 10,
+      height: 63,
+      justifyContent: 'center',
+      alignItems: 'center',
+      opacity: pressed ? 0.3 : 1,
     },
   });

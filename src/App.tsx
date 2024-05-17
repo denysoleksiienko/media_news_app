@@ -1,37 +1,23 @@
-import {
-  useColorScheme,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-} from 'react-native';
-import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useColorScheme, StatusBar } from 'react-native';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
-import Typography from '@/components/elements/Typography';
+import ErrorBoundaryFallback from '@/components/ErrorBoundaryFallback';
+import MainRouter from '@/navigation/MainRoute';
+import { GlobalProvider } from '@/providers/GlobalProvider';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        backgroundColor={backgroundStyle.backgroundColor}
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior='automatic'
-        style={backgroundStyle}
-      >
-        <Header />
-
-        <Typography fontSize='xl' fontWeight='bold'>
-          Hello
-        </Typography>
-      </ScrollView>
-    </SafeAreaView>
+    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+      <KeyboardProvider statusBarTranslucent>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <GlobalProvider>
+          <MainRouter />
+        </GlobalProvider>
+      </KeyboardProvider>
+    </ErrorBoundary>
   );
 }
 
