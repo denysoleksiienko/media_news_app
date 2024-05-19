@@ -5,6 +5,7 @@ import { FlatList, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AddIcon from '@/assets/icons/AddIcon.svg';
+import EmptyList from '@/components/EmptyList';
 import { Layout } from '@/components/Layout';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import NewsCard from '@/components/NewsCard';
@@ -68,6 +69,7 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
           }}
           data={data?.results}
           ItemSeparatorComponent={() => <View style={{ marginVertical: 20 }} />}
+          ListEmptyComponent={<EmptyList />}
           onRefresh={onRefresh}
           refreshing={refreshing}
           renderItem={({ item }) => (
