@@ -17,10 +17,10 @@ if linkage != nil
 end
 
 target 'media_news_app' do
+  config = use_native_modules!
+
   # Firebase
   use_frameworks! :linkage => :static
-  
-  config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],

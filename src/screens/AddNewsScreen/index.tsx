@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Layout } from '@/components/Layout';
 import { KeyboardAwareScrollViewContainer } from '@/components/containers';
 import { Button, Input, Typography } from '@/components/elements';
-import { NEWS } from '@/firebase/collections';
+import { NEWS } from '@/constants/collections';
 import { useDocument } from '@/hooks/useFirebaseDoc';
 import { useTextError } from '@/hooks/useTextError';
 import { useGlobalContext } from '@/providers/GlobalProvider';

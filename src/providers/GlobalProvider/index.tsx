@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 
+import { NEWS } from '@/constants/collections';
 import FirestoreService from '@/firebase/FirestoreService';
-import { NEWS } from '@/firebase/collections';
 import { useFirebaseDocSearch } from '@/hooks/useFirebaseDocSearch';
 import { useLoading } from '@/hooks/useLoading';
 import { FirestoreData, QueryGetAllTypes } from '@/types/firestore';
@@ -53,15 +53,14 @@ const GlobalProvider: FC<PropsWithChildren> = ({ children }) => {
     }
 
     const fetch = async () => {
-      startLoading();
+      if (!refreshing) startLoading();
       try {
         const resp = await FirestoreService.getAll(params);
         setData(resp);
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
-      } finally {
-        stopLoading();
       }
+      if (!refreshing) stopLoading();
     };
 
     fetch();
