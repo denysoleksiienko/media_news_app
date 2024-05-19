@@ -20,7 +20,6 @@ export type QueryGetAllTypes = {
   orderByField?: string;
   sortDir?: OrderByDirection;
   queryLimit?: number;
-  webshopCustomerQuery?: boolean;
   lastVisible?: any;
 };
 

@@ -17,7 +17,8 @@ import { useGlobalContext } from '@/providers/GlobalProvider';
 type Props = StackScreenProps<MainStackParamList, PATHS.NEWS>;
 
 const NewsListScreen: FC<Props> = ({ navigation }) => {
-  const { isLoading, data, onRefresh, refreshing } = useGlobalContext();
+  const { isLoading, data, onRefresh, refreshing, search, onSearch } =
+    useGlobalContext();
 
   const { bottom } = useSafeAreaInsets();
 
@@ -29,9 +30,9 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate(PATHS.ADD_NEWS);
   };
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  // if (isLoading) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     <SafeAreaViewContainer
@@ -50,21 +51,33 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
       >
         <Input
           containerStyle={{ flex: 1, marginEnd: 16 }}
+          defaultValue={search}
+          onChangeText={onSearch}
           placeholder='Search...'
           size='md'
         />
         <ButtonIcon icon={<AddIcon />} onPress={createNews} />
       </Layout>
-      <FlatList
-        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: bottom }}
-        data={data?.results}
-        ItemSeparatorComponent={() => <View style={{ marginVertical: 20 }} />}
-        onRefresh={onRefresh}
-        refreshing={refreshing}
-        renderItem={({ item }) => (
-          <NewsCard onPress={() => navToNewsById(item.documentId)} {...item} />
-        )}
-      />
+      {isLoading ? (
+        <LoadingSpinner backgroundColor='tranparent' />
+      ) : (
+        <FlatList
+          contentContainerStyle={{
+            paddingHorizontal: 16,
+            paddingBottom: bottom,
+          }}
+          data={data?.results}
+          ItemSeparatorComponent={() => <View style={{ marginVertical: 20 }} />}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
+          renderItem={({ item }) => (
+            <NewsCard
+              onPress={() => navToNewsById(item.documentId)}
+              {...item}
+            />
+          )}
+        />
+      )}
     </SafeAreaViewContainer>
   );
 };

@@ -1,16 +1,19 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 
 import FirestoreService from '@/firebase/FirestoreService';
 import { NEWS } from '@/firebase/collections';
+import { useFirebaseDocSearch } from '@/hooks/useFirebaseDocSearch';
 import { useLoading } from '@/hooks/useLoading';
-import { FirestoreData } from '@/types/firestore';
+import { FirestoreData, QueryGetAllTypes } from '@/types/firestore';
 
 interface IGlodalContext {
   isLoading: boolean;
   data: FirestoreData | null;
   onRefresh: () => void;
   refreshing: boolean;
+  search: string;
+  onSearch: (val: string) => void;
 }
 
 const GlodalContext = React.createContext<IGlodalContext>({
@@ -18,44 +21,62 @@ const GlodalContext = React.createContext<IGlodalContext>({
   data: null,
   onRefresh: () => undefined,
   refreshing: false,
+  search: '',
+  onSearch: () => undefined,
 });
 
 const GlobalProvider: FC<PropsWithChildren> = ({ children }) => {
   const { loading, startLoading, stopLoading } = useLoading();
+  const { search, setSearch } = useFirebaseDocSearch();
   const [refreshing, setRefreshing] = useState(false);
 
   const [data, setData] = useState(null);
 
-  const onRefresh = () => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
 
     setTimeout(() => {
+      setSearch('');
       setData(null);
       setRefreshing(false);
     }, 1000);
-  };
+  }, [setSearch]);
 
   useEffect(() => {
-    if (data) stopLoading();
+    const params: QueryGetAllTypes = { path: NEWS };
+    if (search) {
+      params.whereFilter = {
+        key: 'title',
+        opString: '==',
+        value: search,
+      };
+    }
 
-    if (!data) {
+    const fetch = async () => {
       startLoading();
-
       try {
-        const fetchData = async () => {
-          const resp = await FirestoreService.getAll({ path: NEWS });
-          setData(resp);
-        };
-        fetchData();
+        const resp = await FirestoreService.getAll(params);
+        setData(resp);
       } catch (err) {
         throw new Error(`Something went wrong: ${err}`);
+      } finally {
+        stopLoading();
       }
-    }
-  }, [data]);
+    };
+
+    fetch();
+  }, [search, refreshing]);
 
   const value = useMemo(
-    () => ({ isLoading: loading, data, refreshing, onRefresh }),
-    [data, loading, refreshing]
+    () => ({
+      isLoading: loading,
+      data,
+      refreshing,
+      onRefresh,
+      search,
+      onSearch: setSearch,
+    }),
+    [data, loading, onRefresh, refreshing, search, setSearch]
   );
 
   return (

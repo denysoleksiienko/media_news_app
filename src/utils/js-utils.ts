@@ -1,44 +1,44 @@
-/* eslint-disable */
-
-// export function sortBy(key, cb) {
-//   if (!cb) cb = () => 0;
-//   return (a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : cb(a, b));
-// }
-
-// export function sortByDesc(key, cb) {
-//   if (!cb) cb = () => 0;
-//   return (b, a) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : cb(b, a));
-// }
-
-// export function orderBy(keys, orders) {
-//   let cb = () => 0;
-//   keys.reverse();
-//   orders.reverse();
-//   for (const [i, key] of keys.entries()) {
-//     const order = orders[i];
-//     if (order == 'asc') cb = sortBy(key, cb);
-//     else if (order == 'desc') cb = sortByDesc(key, cb);
-//     else throw new Error(`Unsupported order "${order}"`);
-//   }
-//   return cb;
-// }
-
-export function makeRandId(length) {
+export function makeRandId(length: number) {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
 
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
 }
 
-export function getDateFromNow(date) {
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+function getDateString(date: Date) {
+  return `${date.getDate()} ${monthNames[date.getMonth()].slice(
+    0,
+    3
+  )} ${date.getFullYear()}`;
+}
+
+export function getDateFromNow(date: Date) {
   const today = new Date();
-  let minutes = date.getMinutes();
-  let hours = date.getHours();
+  let minutes: string | number = date.getMinutes();
+  let hours: string | number = date.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
   }
@@ -75,7 +75,7 @@ export function getDateFromNow(date) {
   return dateString;
 }
 
-export function toDate(timeLike) {
+export function toDate(timeLike: any) {
   if (
     timeLike &&
     Object.keys(timeLike) &&
