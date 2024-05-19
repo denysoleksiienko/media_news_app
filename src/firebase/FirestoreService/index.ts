@@ -12,7 +12,6 @@ import {
   deleteDoc,
   serverTimestamp,
   setDoc,
-  updateDoc,
 } from 'firebase/firestore';
 
 import { FirestoreServiceTypes, QueryGetAllTypes } from '@/types/firestore';
@@ -138,33 +137,6 @@ class FirestoreService {
       return document;
     } catch (err) {
       throw new Error(`db create with error: ${err}`);
-    }
-  };
-
-  static update = async ({
-    path,
-    doc: docPayload = {},
-    docId,
-  }: {
-    path: string;
-    doc?: any;
-    docId?: string;
-  }): Promise<void> => {
-    if (!docId) {
-      throw new Error('Invalid document id');
-    }
-    try {
-      const updatedAt = serverTimestamp();
-
-      const document = { ...docPayload, updatedAt };
-
-      const docRef = doc(firestore, path, docId);
-
-      await updateDoc(docRef, document);
-
-      return document;
-    } catch (err) {
-      throw new Error(`db update with error: ${err}`);
     }
   };
 

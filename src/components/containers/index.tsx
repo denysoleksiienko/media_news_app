@@ -1,23 +1,16 @@
 import { FC } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import {
-  ImageBackground,
-  ImageBackgroundProps,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import {
   Edge,
   SafeAreaView as DefaultSafeAreaView,
 } from 'react-native-safe-area-context';
 
 import {
-  KeyboardAvoidingView,
-  KeyboardAvoidingViewProps,
   AwareScrollView,
   AwareScrollViewProps,
-} from '@/components/keyboard-controllers';
+} from '@/components/AwareScrollView';
 import { theme, Colors } from '@/theme';
 import { moderateScale } from '@/utils';
 
@@ -27,14 +20,7 @@ type SafeAreaViewProps = {
   backgroundColor?: Colors;
 };
 
-type SafeAreaKeyboardAvoidingViewProps = SafeAreaViewProps &
-  KeyboardAvoidingViewProps;
-
 type SafeAreaAwareScrollViewProps = SafeAreaViewProps & AwareScrollViewProps;
-
-type SafeAreaImageBackgroundViewProps = {
-  imageBackgroundProps: ImageBackgroundProps;
-} & SafeAreaKeyboardAvoidingViewProps;
 
 const SafeAreaView: FC<PropsWithChildren<SafeAreaViewProps>> = ({
   safeTop,
@@ -84,33 +70,6 @@ export const SafeAreaViewContainer: FC<
   </View>
 );
 
-export const KeyboardAvoidingViewContainer: FC<
-  PropsWithChildren<SafeAreaKeyboardAvoidingViewProps>
-> = ({
-  children,
-  safeTop,
-  safeBottom = true,
-  backgroundColor = 'white',
-  style,
-  ...props
-}) => (
-  <KeyboardAvoidingView
-    style={[
-      {
-        flex: 1,
-        backgroundColor: theme.colors[backgroundColor],
-        paddingHorizontal: moderateScale(16),
-      },
-      style,
-    ]}
-    {...props}
-  >
-    <SafeAreaView safeBottom={safeBottom} safeTop={safeTop}>
-      {children}
-    </SafeAreaView>
-  </KeyboardAvoidingView>
-);
-
 export const KeyboardAwareScrollViewContainer: FC<
   PropsWithChildren<SafeAreaAwareScrollViewProps>
 > = ({
@@ -136,16 +95,4 @@ export const KeyboardAwareScrollViewContainer: FC<
       {children}
     </SafeAreaView>
   </AwareScrollView>
-);
-
-export const ImageBackgroundContainer: FC<
-  PropsWithChildren<SafeAreaImageBackgroundViewProps>
-> = ({ children, safeTop, safeBottom, imageBackgroundProps, ...props }) => (
-  <ImageBackground style={{ flex: 1 }} {...imageBackgroundProps}>
-    <KeyboardAvoidingView {...props}>
-      <SafeAreaView safeBottom={safeBottom} safeTop={safeTop}>
-        {children}
-      </SafeAreaView>
-    </KeyboardAvoidingView>
-  </ImageBackground>
 );
