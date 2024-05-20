@@ -27,7 +27,6 @@ const AddNewsScreen: FC = () => {
   } = useForm<AddNewsForm>({ resolver: zodResolver(AddNewsSchema) });
 
   const { error, resetError, setError } = useTextError();
-
   const [{ loading, createDocument }] = useFirebaseDoc({ path: NEWS });
 
   const onSubmit = handleSubmit(
@@ -128,7 +127,11 @@ const AddNewsScreen: FC = () => {
                   onSubmitEditing={onSubmit}
                   placeholder='Type  your message here..*'
                   returnKeyType='send'
-                  style={{ height: 150, padding: 16 }}
+                  style={{
+                    height: 150,
+                    padding: 16,
+                    textAlignVertical: 'top',
+                  }}
                 />
               )}
               rules={{ required: 'Message os required' }}

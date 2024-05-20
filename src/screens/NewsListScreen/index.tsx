@@ -58,6 +58,7 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
         variant='row'
       >
         <Input
+          autoCapitalize='sentences'
           containerStyle={{ flex: 1, marginEnd: 16 }}
           defaultValue={search}
           onChangeText={onSearch}
@@ -72,7 +73,7 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
         <FlatList
           contentContainerStyle={{
             paddingHorizontal: 16,
-            paddingBottom: bottom,
+            paddingBottom: Platform.select({ ios: bottom, android: 16 }),
           }}
           data={data?.results}
           ItemSeparatorComponent={() => <View style={{ marginVertical: 20 }} />}
