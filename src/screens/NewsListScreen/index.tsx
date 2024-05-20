@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { StackScreenProps } from '@react-navigation/stack';
-import { FlatList, View } from 'react-native';
+import { FlatList, Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AddIcon from '@/assets/icons/AddIcon.svg';
@@ -41,10 +41,6 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate(PATHS.MODAL, { documentId });
   };
 
-  // if (isLoading) {
-  //   return <LoadingSpinner />;
-  // }
-
   return (
     <SafeAreaViewContainer
       backgroundColor='extraLightGray'
@@ -53,6 +49,7 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
     >
       <Layout
         mb={20}
+        mt={Platform.OS === 'android' ? 10 : undefined}
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',

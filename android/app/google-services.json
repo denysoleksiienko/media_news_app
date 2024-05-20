@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316787820497",
+    "project_id": "x2-media-test",
+    "storage_bucket": "x2-media-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316787820497:android:c6a7e4c34b43faa20902f0",
+        "android_client_info": {
+          "package_name": "com.media_news_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF7YP6STeg-JFTJRtDepl8JGT-X6my5Qg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
