@@ -3,4 +3,5 @@ export enum PATHS {
   NEWS = 'NEWS',
   ADD_NEWS = 'ADD_NEWS',
   VIEW_NEWS = 'VIEW_NEWS',
+  MODAL = 'MODAl',
 }

@@ -8,7 +8,12 @@ import ArrowIcon from '@/assets/icons/ArrowIcon.svg';
 import { ButtonIcon, Typography } from '@/components/elements';
 import { PATHS } from '@/constants';
 import { MainStackParamList } from '@/navigation/params';
-import { NewsListScreen, AddNewsScreen, ViewNewsScreen } from '@/screens';
+import {
+  NewsListScreen,
+  AddNewsScreen,
+  ViewNewsScreen,
+  ModalScreen,
+} from '@/screens';
 import { theme } from '@/theme';
 
 const Stack = createStackNavigator<MainStackParamList>();
@@ -54,6 +59,19 @@ const MainRouter: FC = () => (
             </Typography>
           ),
         })}
+      />
+      <Stack.Screen
+        component={ModalScreen}
+        name={PATHS.MODAL}
+        options={{
+          headerShown: false,
+          gestureResponseDistance: 1000,
+          cardStyle: {
+            opacity: 1,
+            backgroundColor: 'transparent',
+          },
+          presentation: 'modal',
+        }}
       />
     </Stack.Navigator>
   </NavigationContainer>

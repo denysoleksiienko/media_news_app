@@ -1,6 +1,12 @@
 import React, { FC } from 'react';
 
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import {
+  Image,
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import { theme } from '@/theme';
 import { Results } from '@/types/firestore';
@@ -9,19 +15,14 @@ import { imgUrlRegEx, validateTextRegEx } from '@/utils/regEx';
 
 import { Typography } from '../elements';
 
-interface INewsCard extends Results {
-  onPress: () => void;
-}
-
-const NewsCard: FC<INewsCard> = ({
+const NewsCard: FC<Results & PressableProps> = ({
   imgUrl,
   title,
   message,
   createdAt,
-  onPress,
   ...props
 }) => (
-  <Pressable onPress={onPress} style={styles.container} {...props}>
+  <Pressable style={styles.container} {...props}>
     <View style={styles.imgWrap}>
       {imgUrl && (imgUrlRegEx(imgUrl) || validateTextRegEx(imgUrl)) ? (
         <Image source={{ uri: imgUrl }} style={styles.img} />

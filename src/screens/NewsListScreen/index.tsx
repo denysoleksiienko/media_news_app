@@ -37,6 +37,10 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
     navigation.navigate(PATHS.ADD_NEWS);
   };
 
+  const openModal = (documentId: string) => {
+    navigation.navigate(PATHS.MODAL, { documentId });
+  };
+
   // if (isLoading) {
   //   return <LoadingSpinner />;
   // }
@@ -80,6 +84,8 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
           refreshing={refreshing}
           renderItem={({ item }) => (
             <NewsCard
+              delayLongPress={400}
+              onLongPress={() => openModal(item.documentId)}
               onPress={() =>
                 navToNewsById({
                   documentId: item.documentId,

@@ -7,4 +7,7 @@ export type MainStackParamList = {
     documentId: string;
     title: string;
   };
+  [PATHS.MODAL]: {
+    documentId: string;
+  };
 };

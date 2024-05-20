@@ -1,10 +1,14 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import { useColorScheme, StatusBar } from 'react-native';
+import { useColorScheme, StatusBar, LogBox } from 'react-native';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import ErrorBoundaryFallback from '@/components/ErrorBoundaryFallback';
 import MainRouter from '@/navigation/MainRoute';
 import { GlobalProvider } from '@/providers/GlobalProvider';
+
+LogBox.ignoreLogs([
+  'Sending `onAnimatedValueUpdate` with no listeners registered.',
+]);
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
