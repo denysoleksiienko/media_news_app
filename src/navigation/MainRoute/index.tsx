@@ -1,8 +1,11 @@
 import React, { FC } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
-import { Platform, View } from "react-native";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
+import { Platform, View } from 'react-native';
 
 import ArrowIcon from '@/assets/icons/ArrowIcon.svg';
 import { ButtonIcon, Typography } from '@/components/elements';
@@ -24,7 +27,10 @@ const MainRouter: FC = () => (
       screenOptions={{
         gestureEnabled: true,
         headerShadowVisible: false,
-        cardStyle: { backgroundColor: theme.colors.white, paddingTop: Platform.OS === 'android' ? 10 : undefined },
+        cardStyle: {
+          backgroundColor: theme.colors.white,
+          paddingTop: Platform.OS === 'android' ? 10 : undefined,
+        },
         headerLeft: ({ canGoBack, onPress }) =>
           canGoBack && (
             <View style={{ marginLeft: 16 }}>
@@ -70,7 +76,7 @@ const MainRouter: FC = () => (
           cardOverlayEnabled: true,
           ...Platform.select({
             android: TransitionPresets.FadeFromBottomAndroid,
-            default: TransitionPresets.DefaultTransition,
+            ios: TransitionPresets.ModalSlideFromBottomIOS,
           }),
           presentation: 'transparentModal',
         }}

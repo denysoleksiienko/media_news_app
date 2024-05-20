@@ -38,7 +38,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'global-require': 0,
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 1, // Checks effect dependencies
+    'react-hooks/exhaustive-deps': 0, // Checks effect dependencies
     'react/no-unstable-nested-components': 0,
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-unused-vars': 0,
