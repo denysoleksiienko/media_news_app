@@ -10,7 +10,7 @@ import { Layout } from '@/components/Layout';
 import { KeyboardAwareScrollViewContainer } from '@/components/containers';
 import { Button, Input, Typography } from '@/components/elements';
 import { NEWS } from '@/constants/collections';
-import { useDocument } from '@/hooks/useFirebaseDoc';
+import { useFirebaseDoc } from '@/hooks/useFirebaseDoc';
 import { useTextError } from '@/hooks/useTextError';
 import { useGlobalContext } from '@/providers/GlobalProvider';
 
@@ -28,7 +28,7 @@ const AddNewsScreen: FC = () => {
 
   const { error, resetError, setError } = useTextError();
 
-  const [{ loading, createDocument }] = useDocument({ path: NEWS });
+  const [{ loading, createDocument }] = useFirebaseDoc({ path: NEWS });
 
   const onSubmit = handleSubmit(
     async ({ title, message, link = '', imgUrl = '' }) => {

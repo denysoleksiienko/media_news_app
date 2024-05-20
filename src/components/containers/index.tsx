@@ -1,7 +1,13 @@
 import { FC } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import { View, ViewStyle } from 'react-native';
+import {
+  View,
+  ViewStyle,
+  ScrollView,
+  ScrollViewProps,
+  ViewProps,
+} from 'react-native';
 import {
   Edge,
   SafeAreaView as DefaultSafeAreaView,
@@ -14,13 +20,16 @@ import {
 import { theme, Colors } from '@/theme';
 import { moderateScale } from '@/utils';
 
-type SafeAreaViewProps = {
+type SafeAreaProps = {
   safeTop?: boolean;
   safeBottom?: boolean;
   backgroundColor?: Colors;
 };
 
-type SafeAreaAwareScrollViewProps = SafeAreaViewProps & AwareScrollViewProps;
+type SafeAreaAwareScrollViewProps = SafeAreaProps & AwareScrollViewProps;
+type SafeAreaScrollViewProps = SafeAreaProps &
+  ScrollViewProps & { style?: ViewStyle };
+type SafeAreaViewProps = SafeAreaProps & ViewProps & { style?: ViewStyle };
 
 const SafeAreaView: FC<PropsWithChildren<SafeAreaViewProps>> = ({
   safeTop,
@@ -45,7 +54,7 @@ const SafeAreaView: FC<PropsWithChildren<SafeAreaViewProps>> = ({
 };
 
 export const SafeAreaViewContainer: FC<
-  PropsWithChildren<SafeAreaViewProps & { style?: ViewStyle }>
+  PropsWithChildren<SafeAreaViewProps>
 > = ({
   children,
   safeTop,
@@ -68,6 +77,32 @@ export const SafeAreaViewContainer: FC<
       {children}
     </SafeAreaView>
   </View>
+);
+
+export const SafeAreaScrollViewContainer: FC<
+  PropsWithChildren<SafeAreaScrollViewProps>
+> = ({
+  children,
+  safeTop,
+  safeBottom = true,
+  backgroundColor = 'white',
+  style,
+  ...props
+}) => (
+  <ScrollView
+    style={[
+      {
+        flex: 1,
+        backgroundColor: theme.colors[backgroundColor],
+      },
+      style,
+    ]}
+    {...props}
+  >
+    <SafeAreaView safeBottom={safeBottom} safeTop={safeTop}>
+      {children}
+    </SafeAreaView>
+  </ScrollView>
 );
 
 export const KeyboardAwareScrollViewContainer: FC<

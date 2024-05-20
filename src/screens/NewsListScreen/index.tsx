@@ -23,8 +23,14 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
 
   const { bottom } = useSafeAreaInsets();
 
-  const navToNewsById = (documentId: string) => {
-    navigation.navigate(PATHS.VIEW_NEWS, { documentId });
+  const navToNewsById = ({
+    documentId,
+    title,
+  }: {
+    documentId: string;
+    title: string;
+  }) => {
+    navigation.navigate(PATHS.VIEW_NEWS, { documentId, title });
   };
 
   const createNews = () => {
@@ -74,7 +80,12 @@ const NewsListScreen: FC<Props> = ({ navigation }) => {
           refreshing={refreshing}
           renderItem={({ item }) => (
             <NewsCard
-              onPress={() => navToNewsById(item.documentId)}
+              onPress={() =>
+                navToNewsById({
+                  documentId: item.documentId,
+                  title: item.title,
+                })
+              }
               {...item}
             />
           )}

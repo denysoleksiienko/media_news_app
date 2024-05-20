@@ -37,6 +37,19 @@ export const Layout: FC<PropsWithChildren<ILayoutProps>> = ({
   </View>
 );
 
+const getVariant = (variant?: Variants) => {
+  switch (variant) {
+    case 'column':
+      return { paddingVertical: 16 };
+    case 'row':
+      return { paddingHorizontal: 16 };
+    case 'content':
+      return { padding: 16 };
+    default:
+      return { padding: 0 };
+  }
+};
+
 const styles = ({ centered, mb, mt, variant }: ILayoutProps) =>
   StyleSheet.create({
     container: {
@@ -44,8 +57,6 @@ const styles = ({ centered, mb, mt, variant }: ILayoutProps) =>
       justifyContent: centered ? 'center' : undefined,
       marginBottom: mb || undefined,
       marginTop: mt || undefined,
-      paddingHorizontal: variant === 'row' ? 16 : 0,
-      paddingVertical: variant === 'column' ? 16 : 0,
-      padding: variant === 'content' ? 16 : 0,
+      ...getVariant(variant),
     },
   });

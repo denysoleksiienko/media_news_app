@@ -5,5 +5,6 @@ export type MainStackParamList = {
   [PATHS.ADD_NEWS]: undefined;
   [PATHS.VIEW_NEWS]: {
     documentId: string;
+    title: string;
   };
 };

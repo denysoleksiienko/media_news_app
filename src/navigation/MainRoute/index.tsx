@@ -5,10 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
 
 import ArrowIcon from '@/assets/icons/ArrowIcon.svg';
-import { ButtonIcon } from '@/components/elements';
+import { ButtonIcon, Typography } from '@/components/elements';
 import { PATHS } from '@/constants';
 import { MainStackParamList } from '@/navigation/params';
-import { NewsListScreen, AddNewsScreen } from '@/screens';
+import { NewsListScreen, AddNewsScreen, ViewNewsScreen } from '@/screens';
 import { theme } from '@/theme';
 
 const Stack = createStackNavigator<MainStackParamList>();
@@ -20,6 +20,16 @@ const MainRouter: FC = () => (
         gestureEnabled: true,
         headerShadowVisible: false,
         cardStyle: { backgroundColor: theme.colors.white },
+        headerLeft: ({ canGoBack, onPress }) =>
+          canGoBack && (
+            <View style={{ marginLeft: 16 }}>
+              <ButtonIcon icon={<ArrowIcon />} onPress={onPress} />
+            </View>
+          ),
+        headerTitleStyle: {
+          fontSize: theme.fontSizes.lg,
+          fontFamily: theme.fontFamily.bold,
+        },
       }}
     >
       <Stack.Screen
@@ -31,17 +41,19 @@ const MainRouter: FC = () => (
         component={AddNewsScreen}
         name={PATHS.ADD_NEWS}
         options={{
-          headerLeft: ({ onPress }) => (
-            <View style={{ marginLeft: 16 }}>
-              <ButtonIcon icon={<ArrowIcon />} onPress={onPress} />
-            </View>
-          ),
           headerTitle: 'New post',
-          headerTitleStyle: {
-            fontSize: theme.fontSizes.lg,
-            fontFamily: theme.fontFamily.medium,
-          },
         }}
+      />
+      <Stack.Screen
+        component={ViewNewsScreen}
+        name={PATHS.VIEW_NEWS}
+        options={({ route }) => ({
+          headerTitle: () => (
+            <Typography fontSize='lg' fontWeight='bold' numberOfLines={1}>
+              {route.params.title}
+            </Typography>
+          ),
+        })}
       />
     </Stack.Navigator>
   </NavigationContainer>

@@ -9,7 +9,7 @@ type UseDocument = {
   docId?: string;
 };
 
-export function useDocument({ path = '', docId = '' }: UseDocument) {
+export function useFirebaseDoc({ path = '', docId = '' }: UseDocument) {
   const { loading, startLoading, stopLoading } = useLoading();
 
   const getDocumentById = async (documentId: string) => {

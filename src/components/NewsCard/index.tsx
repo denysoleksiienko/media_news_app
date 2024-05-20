@@ -3,21 +3,15 @@ import React, { FC } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 
 import { theme } from '@/theme';
+import { Results } from '@/types/firestore';
 import { getDateFromNow, toDate } from '@/utils/js-utils';
+import { imgUrlRegEx, validateTextRegEx } from '@/utils/regEx';
 
 import { Typography } from '../elements';
 
-interface INewsCard {
-  imgUrl?: string;
-  title: string;
-  message: string;
-  createdAt: string;
-  link?: string;
+interface INewsCard extends Results {
   onPress: () => void;
 }
-
-const imgUrlRegEx = (url: string) => url.match(/\.(jpeg|jpg|gif|png)$/);
-const validateText = (url: string) => /(http(s?)):\/\//i.test(url);
 
 const NewsCard: FC<INewsCard> = ({
   imgUrl,
@@ -29,7 +23,7 @@ const NewsCard: FC<INewsCard> = ({
 }) => (
   <Pressable onPress={onPress} style={styles.container} {...props}>
     <View style={styles.imgWrap}>
-      {imgUrl && (imgUrlRegEx(imgUrl) || validateText(imgUrl)) ? (
+      {imgUrl && (imgUrlRegEx(imgUrl) || validateTextRegEx(imgUrl)) ? (
         <Image source={{ uri: imgUrl }} style={styles.img} />
       ) : (
         <Typography fontWeight='bold' style={{ textAlign: 'center' }}>

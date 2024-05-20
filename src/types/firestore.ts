@@ -29,7 +29,7 @@ export type Results = {
   imgUrl?: string;
   link?: string;
   message: string;
-  createdAt: string;
+  createdAt: { nanoseconds: number; seconds: number };
 };
 
 export type FirestoreData = {
