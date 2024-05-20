@@ -16,7 +16,6 @@
   "dependencies": {
     "@hookform/resolvers": "^3.4.0",
     "@react-native-firebase/app": "^19.2.2",
-    "@react-native-firebase/firestore": "^19.2.2",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
     "firebase": "^10.12.0",
